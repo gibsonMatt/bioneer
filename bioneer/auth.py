@@ -11,6 +11,8 @@ from logging import Logger
 
 @dataclass
 class AuthHandle:
+    # TO DO: handle selecting model. Default to GPT4, but select 3.5 if not available.
+
     logger: Logger = setup_logger("auth")
 
     def configure(self):
