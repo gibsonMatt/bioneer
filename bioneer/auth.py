@@ -8,9 +8,9 @@ from openai import AuthenticationError
 from bioneer.logging import setup_logger
 from logging import Logger
 
-@dataclass
-class AuthHandle():
 
+@dataclass
+class AuthHandle:
     logger: Logger = setup_logger("auth")
 
     def configure(self):
@@ -18,9 +18,8 @@ class AuthHandle():
         load_dotenv()
         self.is_configured()
 
-
     def is_configured(self):
-        key = os.getenv("OPENAI_API_KEY") 
+        key = os.getenv("OPENAI_API_KEY")
         if key != None:
             self.api_key = key
             self.logger.debug("Authenticated")
