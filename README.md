@@ -11,7 +11,7 @@ etc
 
 Bioneer makes it easy to ask these questions in your terminal, and immediately get a `bcftools` command. 
 
-Bioneer streamlines and optimizes queries to an LLM by using dynamic few-shot prompt engineering to produce high quality results every time. The only output is a single bcftools one-liner to accomplish your task. 
+Bioneer streamlines and optimizes queries by using dynamic few-shot prompt engineering to produce high quality results every time. The only output is a single bcftools one-liner to accomplish your task. 
 
 
 
@@ -30,11 +30,13 @@ Usage: bioneer ask [OPTIONS] QUERY
 
   Main function for querying the model using dynamic few-shot injection.
 
-  Parameters:     query (str): The query to ask the LLM     degree (int):
-  Number of similar prompts to include in dynamic few-shot injection     force
-  (bool): Force re-create Chroma db
-
-  Returns:
+  Parameters:     
+  
+    query (str): The query to ask the LLM     
+  
+    degree (int): Number of similar prompts to include in dynamic few-shot injection     
+  
+    force (bool): Force re-create Chroma db
 
 Options:
   -d, --degree INTEGER  Number of similar prompts to include in dynamic few-
