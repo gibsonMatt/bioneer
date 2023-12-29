@@ -9,14 +9,16 @@ from langchain.chat_models import ChatOpenAI
 
 
 @dataclass
-class Query():
+class Query:
     query: str
     auth: AuthHandle
 
     id: UUID = uuid4()
 
     def __post_init__(self):
-        assert len(self.query) < 300 and len(self.query) > 5, "Query either too small or too large"
+        assert (
+            len(self.query) < 300 and len(self.query) > 5
+        ), "Query either too small or too large"
 
     def run(self, examples):
         # assemble prompt
@@ -44,26 +46,25 @@ class Query():
 
         final_prompt = ChatPromptTemplate.from_messages(
             [
-                ("system", "You are a helpful AI bot that writes bcftools command line commands to solve user's requestd operation on their vcf or bcf file"),
+                (
+                    "system",
+                    "You are a helpful AI bot that writes bcftools command line commands to solve user's requestd operation on their vcf or bcf file",
+                ),
                 ("system", formatting),
                 few_shot_prompt,
-                ("human", "{query}")
+                ("human", "{query}"),
             ]
         )
 
-        chain = final_prompt | ChatOpenAI(temperature=0.0, openai_api_key = self.auth.api_key)
+        chain = final_prompt | ChatOpenAI(
+            temperature=0.0, openai_api_key=self.auth.api_key
+        )
 
         self.response = chain.invoke({"query": self.query})
 
-        
-
-    def validate_response():
-        pass
+    def validate_response(self):
+        if "bcftools" not in self.response:
+            raise Exception("Error generating valid response from model")
 
     def format_response():
         pass
-
-    
-
-
-    

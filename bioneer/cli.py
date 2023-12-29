@@ -6,11 +6,18 @@ from bioneer.query import Query
 from bioneer.vectorstore import VectorStoreHandle
 
 from bioneer.logging import setup_logger
+import logging
 
 
 @click.group()
-def cli():
-    logger = setup_logger("bioneer")
+@click.option(
+    "-v", "--verbose", "verbose", default=False, type=bool, help="Verbose", is_flag=True
+)
+def cli(verbose: bool):
+    if verbose:
+        logger = setup_logger("bioneer", level=logging.DEBUG)
+    else:
+        logger = setup_logger("bioneer", level=logging.DEBUG)
 
 
 @cli.command()
@@ -24,7 +31,13 @@ def cli():
     help="Number of similar prompts to include in dynamic few-shot injection",
 )
 @click.option(
-    "-f", "--force", "force", default=False, type=bool, help="Force re-create Chroma db"
+    "-f",
+    "--force",
+    "force",
+    default=False,
+    is_flag=True,
+    type=bool,
+    help="Force re-create Chroma db",
 )
 def ask(query: str, degree: int, force: bool):
     """
@@ -56,6 +69,9 @@ def ask(query: str, degree: int, force: bool):
 
     # Run the bioneer query
     my_query.run(prompt_response_examples)
+
+    # Validate
+    my_query.validate_response()
 
     # Pretty-print response
     click.echo(click.style(my_query.response.content, fg="green", bold=True))
