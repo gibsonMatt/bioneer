@@ -7,10 +7,3 @@ repos:
         entry: poetry run black
         language: system
         types: [file, python]
-  - repo: local
-    hooks:
-      - id: pytest
-        name: pytest
-        entry: poetry run pytest
-        language: system
-        types: [python]

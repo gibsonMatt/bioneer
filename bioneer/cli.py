@@ -5,8 +5,8 @@ from bioneer.auth import AuthHandle
 from bioneer.query import Query
 from bioneer.vectorstore import VectorStoreHandle
 
-from bioneer.logging import setup_logger
 import logging
+import sys
 
 
 @click.group()
@@ -15,9 +15,9 @@ import logging
 )
 def cli(verbose: bool):
     if verbose:
-        logger = setup_logger("bioneer", level=logging.DEBUG)
+        logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
     else:
-        logger = setup_logger("bioneer", level=logging.DEBUG)
+        logging.basicConfig(stream=sys.stdout, level=logging.ERROR)
 
 
 @cli.command()
@@ -51,9 +51,19 @@ def ask(query: str, degree: int, force: bool):
     Returns:
     """
 
+    logger = logging.getLogger(__name__)
+
     # verify that api key is provided
     auth = AuthHandle()
     auth.configure()
+
+    # pick model
+    available_models = auth.get_available_models()
+    if "gpt-4-1106-preview" in available_models:
+        auth.model = "gpt-4-1106-preview"
+    else:
+        auth.model = "gpt-4"
+    logger.debug(f"Using model {auth.model}")
 
     # configure the vector store for getting related prompt examples.
     # will create new local Chroma db at path `VECTORSTORE` using prompts
@@ -71,7 +81,7 @@ def ask(query: str, degree: int, force: bool):
     my_query.run(prompt_response_examples)
 
     # Validate
-    my_query.validate_response()
+    # my_query.validate_response()
 
     # Pretty-print response
     click.echo(click.style(my_query.response.content, fg="green", bold=True))

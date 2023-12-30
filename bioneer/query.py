@@ -23,13 +23,9 @@ class Query:
     def run(self, examples):
         # assemble prompt
 
-        formatting = """Return only the command in Markdown format, e.g.:
+        formatting = """Return only the command line command.
 
-        ```bash
-        ...
-        ```
-
-        Do not include any additional explanation.
+        Do not include any additional explanation or formatting.
         """
 
         example_prompt = ChatPromptTemplate.from_messages(
@@ -57,7 +53,9 @@ class Query:
         )
 
         chain = final_prompt | ChatOpenAI(
-            temperature=0.0, openai_api_key=self.auth.api_key
+            temperature=0.0,
+            openai_api_key=self.auth.api_key,
+            model=self.auth.model,
         )
 
         self.response = chain.invoke({"query": self.query})
