@@ -22,7 +22,7 @@ class VectorStoreHandle:
     degree: int = 3
     initialized: bool = True
     examples_url: str = "https://raw.githubusercontent.com/gibsonMatt/bioneer/main/data/data_bcftools_view.txt"
-    
+
     def __post_init__(self):
         logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ class VectorStoreHandle:
                         file.write(response.content)
             else:
                 logger.debug(f"Using prompt examples from {path}")
-            
+
             path = file_path
 
             persistent = os.getenv("VECTORSTORE")
