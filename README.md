@@ -60,5 +60,5 @@ bioneer ask [query]
 
 ## Update examples
 
-Append examples to this file [./data/data_bcftools_view.txt](file).
+Append examples to this [./data/data_bcftools_view.txt](file).
 

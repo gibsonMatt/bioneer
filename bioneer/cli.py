@@ -28,7 +28,7 @@ def cli(verbose: bool):
     "degree",
     default=3,
     type=int,
-    help="Number of similar prompts to include in dynamic few-shot injection",
+    help="Number of similar prompts to include",
 )
 @click.option(
     "-f",
