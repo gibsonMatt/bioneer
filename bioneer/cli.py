@@ -41,12 +41,12 @@ def cli(verbose: bool):
 )
 def ask(query: str, degree: int, force: bool):
     """
-    Main function for querying the model using dynamic few-shot injection.
+    ask bioneer\n
 
-    Parameters:
-        query (str): The query to ask the LLM
-        degree (int): Number of similar prompts to include in dynamic few-shot injection
-        force (bool): Force re-create Chroma db
+    Parameters:\n
+        query (str): The query to ask the LLM\n
+        degree (int): Number of similar prompts to include in dynamic few-shot injection\n
+        force (bool): Force re-create Chroma db\n
 
     Returns:
     """

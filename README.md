@@ -13,31 +13,49 @@ Bioneer streamlines and optimizes queries by using dynamic few-shot prompt engin
 ```
 bioneer ask "filter vcf to remove all indels, subset to 'chr1', and then normalize all multiallelics to their own records"
 ```
+
+### Result
 ```
 bcftools view -i 'TYPE="snp"' -r chr1 -H your_vcf.vcf | bcftools norm -m- your_vcf.vcf
 ```
 
-### Options
+## Configure
+
+`bioneer` will automatically configure itself, with the exception of your `OPENAI_APIKEY`. Set this variable yourself, for example by running
+
+```
+export OPENAI_APIKEY="you-api-key"
+```
+
+Vectorstores and example datasets will be stored at `~/.bioneer/`. To change where `bioneer` looks for example data or where the Chroma database is stored, you can optionally set the following environmental variables:
+
+```
+VECTORSTORE="path"
+PROMPT_EXAMPLES_PATH="path"
+```
+
+## Options
 ```
 $ poetry run bioneer ask --help
 Usage: bioneer ask [OPTIONS] QUERY
 
-  Main function for querying the model using dynamic few-shot injection.
+  ask bioneer
 
-  Parameters:     
-  
-    query (str): The query to ask the LLM     
-  
-    degree (int): Number of similar prompts to include   
-  
-    force (bool): Force re-create Chroma db
+  Parameters:
+
+      query (str): The query to ask the LLM
+
+      degree (int): Number of similar prompts to include in dynamic few-shot
+      injection
+
+      force (bool): Force re-create Chroma db
+
+  Returns:
 
 Options:
-  -d, --degree INTEGER  Number of similar prompts to include in dynamic few-
-                        shot injection
-  -f, --force BOOLEAN   Force re-create Chroma db
+  -d, --degree INTEGER  Number of similar prompts to include
+  -f, --force           Force re-create Chroma db
   --help                Show this message and exit.
-
 ```
 
 
