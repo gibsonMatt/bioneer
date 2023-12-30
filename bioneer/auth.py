@@ -1,11 +1,11 @@
 # auth.py
 
-from dataclasses import dataclass
-from dotenv import load_dotenv
-import os
-from openai import OpenAI
-from openai import AuthenticationError
 import logging
+import os
+from dataclasses import dataclass
+
+from dotenv import load_dotenv
+from openai import AuthenticationError, OpenAI
 
 
 @dataclass

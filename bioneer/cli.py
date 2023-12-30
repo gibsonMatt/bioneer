@@ -1,12 +1,12 @@
-import click
+import logging
+import sys
 from dataclasses import dataclass
+
+import click
 
 from bioneer.auth import AuthHandle
 from bioneer.query import Query
 from bioneer.vectorstore import VectorStoreHandle
-
-import logging
-import sys
 
 
 @click.group()

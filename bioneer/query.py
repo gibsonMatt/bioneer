@@ -1,11 +1,10 @@
 from dataclasses import dataclass
-from uuid import uuid4, UUID
-from bioneer.auth import AuthHandle
-from langchain.prompts import (
-    ChatPromptTemplate,
-    FewShotChatMessagePromptTemplate,
-)
+from uuid import UUID, uuid4
+
 from langchain.chat_models import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
+
+from bioneer.auth import AuthHandle
 
 
 @dataclass

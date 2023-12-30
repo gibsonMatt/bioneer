@@ -1,17 +1,18 @@
-from dataclasses import dataclass
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.prompts import SemanticSimilarityExampleSelector
-from langchain.vectorstores import Chroma
-from bioneer.auth import AuthHandle
-from bioneer.query import Query
-from dotenv import load_dotenv
-from langchain.document_loaders import TextLoader
-from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddings
+import json
 import logging
 import os
-import json
-import os
+from dataclasses import dataclass
+
 import requests
+from dotenv import load_dotenv
+from langchain.document_loaders import TextLoader
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddings
+from langchain.prompts import SemanticSimilarityExampleSelector
+from langchain.vectorstores import Chroma
+
+from bioneer.auth import AuthHandle
+from bioneer.query import Query
 
 
 @dataclass
