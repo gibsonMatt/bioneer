@@ -3,7 +3,7 @@
 A bioinformatics LLM companion tool. Ask questions in your terminal (e.g., "subset 5 vcfs to 'chr1' and merge"), and immediately get a `bcftools` command. 
 
 
-Bioneer uses a training set of data curated from the bcftools vx.x. manual. Related examples of valid queries and repsonses are included with the user prompt. Related examples (stored locally in a Chroma database) are chosen based on semantic similarity using embeddings generated with `MiniLM-L6-v2`. 
+bioneer uses a training set of data curated from the bcftools vx.x. manual. Related examples of valid queries and repsonses are included with the user prompt. Related examples (stored locally in a Chroma database) are chosen based on semantic similarity using embeddings generated with `MiniLM-L6-v2`. 
 
 
 Bioneer streamlines and optimizes queries by using dynamic few-shot prompt engineering to produce high quality results. The only output are "valid" bcftools commands.
@@ -59,24 +59,31 @@ Options:
 ```
 
 
-## Development
+## Installation and Development
+
+`bioneer` uses Poetry
+
+### Install dependencies with dev requirements
 
 ```
-poetry install --with dev
+poetry install --with dev # installs with isort, pytest, and black
 ```
 
+### Execute in Poetry environment
 ```
 poetry run bioneer ask [query]
 ```
 
-or
+### Hooks
 
-```
-poetry shell
-bioneer ask [query]
-```
+pytest, black, and isort are executed as pre-commit hooks
+
+
+### Tests
+
+Tests as defined in [tests/](file)
 
 ## Update examples
 
-Append examples to this [./data/data_bcftools_view.txt](file).
+Append examples to [data/data_bcftools_view.txt](file)
 

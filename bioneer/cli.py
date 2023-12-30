@@ -15,9 +15,9 @@ from bioneer.vectorstore import VectorStoreHandle
 )
 def cli(verbose: bool):
     if verbose:
-        logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+        logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     else:
-        logging.basicConfig(stream=sys.stdout, level=logging.ERROR)
+        logging.basicConfig(stream=sys.stdout, level=logging.WARN)
 
 
 @cli.command()
