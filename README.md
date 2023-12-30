@@ -1,18 +1,12 @@
 # Bioneer
 
-Your bioinformatics LLM companion tool
+A bioinformatics LLM companion tool. Ask questions in your terminal (e.g., "subset 5 vcfs to 'chr1' and merge"), and immediately get a `bcftools` command. 
 
-As a bioinformatician I constantly find myself looking up the same common commands every day. Common searches include:
 
-> how to filter a VCF by minor allele frequency?   
-> how to remove multiallelics from a VCF?   
-> how to merge VCF files   
-etc
+Bioneer uses a training set of data curated from the bcftools vx.x. manual. Related examples of valid queries and repsonses are included with the user prompt. Related examples (stored locally in a Chroma database) are chosen based on semantic similarity using embeddings generated with `MiniLM-L6-v2`. 
 
-Bioneer makes it easy to ask these questions in your terminal, and immediately get a `bcftools` command. 
 
-Bioneer streamlines and optimizes queries by using dynamic few-shot prompt engineering to produce high quality results every time. The only output is a single bcftools one-liner to accomplish your task. 
-
+Bioneer streamlines and optimizes queries by using dynamic few-shot prompt engineering to produce high quality results. The only output are "valid" bcftools commands.
 
 
 ## Usage
@@ -34,7 +28,7 @@ Usage: bioneer ask [OPTIONS] QUERY
   
     query (str): The query to ask the LLM     
   
-    degree (int): Number of similar prompts to include in dynamic few-shot injection     
+    degree (int): Number of similar prompts to include   
   
     force (bool): Force re-create Chroma db
 
@@ -63,3 +57,8 @@ or
 poetry shell
 bioneer ask [query]
 ```
+
+## Update examples
+
+Append examples to this file [./data/data_bcftools_view.txt](file).
+
