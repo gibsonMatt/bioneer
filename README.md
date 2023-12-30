@@ -11,12 +11,25 @@ Bioneer streamlines and optimizes queries by using dynamic few-shot prompt engin
 
 ## Usage
 ```
-bioneer ask "filter vcf to remove all indels, subset to 'chr1', and then normalize all multiallelics to their own records"
+bioneer ask "remove all indels from a bcf file, subset to contig '1'"
 ```
 
 ### Result
 ```
-bcftools view -i 'TYPE="snp"' -r chr1 -H your_vcf.vcf | bcftools norm -m- your_vcf.vcf
+bcftools view -V indels -r 1 your_file.bcf
+```
+
+### Advanced usage
+
+More complex operations are also possible
+
+```
+bioneer ask "exclude all indels, subset to contig named 'contig1', remove SNPs if more than 20 samples have missing genotypes, remove all multi-allelic sites"
+```
+
+#### Result
+```
+bcftools view -V indels,mnps,other -r contig1 -i 'F_MISSING <= 0.2' -m2 -M2 your_vcf.vcf
 ```
 
 ## Configure
