@@ -31,9 +31,9 @@ class VectorStoreHandle:
         load_dotenv()
 
         # always defaults to the environmental variables
-
         path = os.getenv("PROMPT_EXAMPLES_PATH")
         if path == None:
+            # otherwise will download the examples from the url
             file_path = os.path.expanduser("~/.bioneer/bioneer_data.txt")
             directory = os.path.dirname(file_path)
 
@@ -41,6 +41,7 @@ class VectorStoreHandle:
                 logger.info(f"Creating directory {directory}")
                 os.makedirs(directory)
 
+            # if the file doesnt exist or we are forcing a re-download
             if not os.path.exists(file_path) or self.force:
                 if self.force:
                     logger.info("Force flag set, re-downloading prompt examples")
@@ -53,8 +54,10 @@ class VectorStoreHandle:
         else:
             logger.info(f"Using prompt examples from {path}")
 
+        # always defaults to the environmental variables
         persistent = os.getenv("VECTORSTORE")
 
+        # if not set, will default to ~/.bioneer/vectorstore
         if persistent == None:
             persistent = os.path.expanduser("~/.bioneer/vectorstore")
             logger.info(f"Using default vectorstore {persistent}")
@@ -64,12 +67,14 @@ class VectorStoreHandle:
         # store as attribute
         self.persistent = persistent
 
+        # initialize the embedding function
         embedding_function = SentenceTransformerEmbeddings(
             model_name="all-MiniLM-L6-v2"
         )
         logger.debug(f"Using embedding model {embedding_function.model_name}")
 
-        if self.type == "default":
+        # initialize the vectorstore
+        if not os.path.exists(persistent) or self.force:
             with open(path, "r") as file:
                 data = json.load(file)
             to_vectorize = [" ".join(d.values()) for d in data]
@@ -81,8 +86,7 @@ class VectorStoreHandle:
                 persist_directory=persistent,
             )
             initialized = True
-
-        elif initialized == True:
+        else:
             logger.info(f"Using existing vectorstore {persistent}")
             vectorstore = Chroma(
                 persist_directory=self.persistent, embedding_function=embedding_function
