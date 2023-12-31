@@ -32,7 +32,15 @@ class VectorStoreHandle:
 
         # always defaults to the environmental variables
         path = os.getenv("PROMPT_EXAMPLES_PATH")
-        if path == None:
+
+        if not os.path.exists(path):
+            logger.error(
+                f"Environmental variable set but prompt examples not found at {path}"
+            )
+            path = None
+            exit(2)
+
+        if path == None or len(path) == 0:
             # otherwise will download the examples from the url
             file_path = os.path.expanduser("~/.bioneer/bioneer_data.txt")
             directory = os.path.dirname(file_path)
