@@ -33,7 +33,7 @@ class VectorStoreHandle:
         # always defaults to the environmental variables
         path = os.getenv("PROMPT_EXAMPLES_PATH")
 
-        if not os.path.exists(path):
+        if isinstance(path, str) == False or len(path) < 2:
             logger.info(
                 f"Environmental variable set but prompt examples not found at {path}"
             )
