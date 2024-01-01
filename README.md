@@ -40,7 +40,7 @@ bcftools view -V indels,mnps,other -r contig1 -i 'F_MISSING <= 0.2' -m2 -M2 your
 export OPENAI_APIKEY="you-api-key"
 ```
 
-Vectorstores and example datasets will be stored at `~/.bioneer/`. To change where `bioneer` looks for example data or where the Chroma database is stored, you can optionally set the following environmental variables:
+Vectorstores and example datasets will be stored at `~/.bioneer/`. To change where `bioneer` looks for example data or where the Chroma database is stored, you can optionally set the following environmental variables. Environmental variables will be preferred.
 
 ```
 VECTORSTORE="path"
